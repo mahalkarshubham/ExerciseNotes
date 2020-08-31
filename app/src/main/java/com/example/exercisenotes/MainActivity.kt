@@ -10,9 +10,12 @@ import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.lifecycle.LiveData
@@ -47,9 +50,48 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+enum class Screens {
+    Exercises, Edit
+}
+
 @Composable
 fun MainScreen(
     dao: ExerciseDao
+) {
+    val currentScreen = remember { mutableStateOf(Screens.Exercises) }
+    val navTo = { s: Screens ->
+        currentScreen.value = s
+    }
+    when (currentScreen.value) {
+        Screens.Exercises -> Exercises(dao, navTo)
+        Screens.Edit -> EditExercise()
+    }
+}
+
+@Composable
+fun EditExercise() {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Edit Exercise") },
+                navigationIcon = {
+                    IconButton(
+                        onClick = {},
+                        icon = { Icon(Icons.Filled.ArrowBack) }
+                    )
+                }
+            )
+        },
+        bodyContent = {
+            // TODO
+        }
+    )
+}
+
+@Composable
+fun Exercises(
+    dao: ExerciseDao,
+    navTo: (Screens) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -75,7 +117,12 @@ fun MainScreen(
             )
         },
         bodyContent = {
-            ExercisesList(dao.getExercises())
+            ExercisesList(
+                exercises = dao.getExercises(),
+                editExercise = {
+                    navTo(Screens.Edit)
+                }
+            )
         }
     )
 }
@@ -95,14 +142,22 @@ fun MainScreenPreview() {
 
 @Composable
 fun ExercisesList(
-    exercises: LiveData<List<Exercise>>
+    exercises: LiveData<List<Exercise>>,
+    editExercise: (Exercise) -> Unit
 ) {
     val state = exercises.observeAsState()
     LazyColumnFor(items = state.value ?: emptyList()) { exercise ->
         ListItem(
             text = { Text(exercise.name) },
             secondaryText = { Text(exercise.description) },
-            modifier = Modifier.clickable(onClick = {})
+            modifier = Modifier.clickable(
+                onClick = {
+                    editExercise(exercise)
+                },
+                onLongClick = {
+
+                }
+            )
         )
     }
 }
