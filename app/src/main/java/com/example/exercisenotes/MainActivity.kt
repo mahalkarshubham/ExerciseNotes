@@ -64,13 +64,17 @@ fun MainScreen(
     }
     when (currentScreen.value) {
         Screens.Exercises -> Exercises(dao, navTo)
-        Screens.Edit -> EditExercise(ArgsUtils.args["exercise"] as Exercise)
+        Screens.Edit -> EditExercise(
+            exercise = ArgsUtils.args["exercise"] as Exercise,
+            navTo = navTo
+        )
     }
 }
 
 @Composable
 fun EditExercise(
-    exercise: Exercise
+    exercise: Exercise,
+    navTo: (Screens) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -78,7 +82,7 @@ fun EditExercise(
                 title = { Text("Edit Exercise") },
                 navigationIcon = {
                     IconButton(
-                        onClick = {},
+                        onClick = { navTo(Screens.Exercises) },
                         icon = { Icon(Icons.Filled.ArrowBack) }
                     )
                 }
@@ -94,7 +98,7 @@ fun EditExercise(
 @Preview
 fun EditExercisePreview() {
     MaterialTheme {
-        EditExercise(Exercise("Lunge", ""))
+        EditExercise(Exercise("Lunge", ""), {})
     }
 }
 
