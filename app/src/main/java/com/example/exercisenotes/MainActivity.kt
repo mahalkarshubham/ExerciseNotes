@@ -64,12 +64,14 @@ fun MainScreen(
     }
     when (currentScreen.value) {
         Screens.Exercises -> Exercises(dao, navTo)
-        Screens.Edit -> EditExercise()
+        Screens.Edit -> EditExercise(ArgsUtils.args["exercise"] as Exercise)
     }
 }
 
 @Composable
-fun EditExercise() {
+fun EditExercise(
+    exercise: Exercise
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -83,9 +85,17 @@ fun EditExercise() {
             )
         },
         bodyContent = {
-            // TODO
+            Text(exercise.name)
         }
     )
+}
+
+@Composable
+@Preview
+fun EditExercisePreview() {
+    MaterialTheme {
+        EditExercise(Exercise("Lunge", ""))
+    }
 }
 
 @Composable
@@ -119,7 +129,8 @@ fun Exercises(
         bodyContent = {
             ExercisesList(
                 exercises = dao.getExercises(),
-                editExercise = {
+                editExercise = { exercise ->
+                    ArgsUtils.args["exercise"] = exercise
                     navTo(Screens.Edit)
                 }
             )
