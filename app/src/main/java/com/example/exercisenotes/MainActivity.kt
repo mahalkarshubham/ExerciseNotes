@@ -85,7 +85,9 @@ fun MainScreen(
 fun MainScreenPreview() {
     MaterialTheme {
         MainScreen(object : ExerciseDao {
-            override fun getExercises(): LiveData<List<Exercise>> = MutableLiveData()
+            override fun getExercises(): LiveData<List<Exercise>> =
+                MutableLiveData(listOf(Exercise("Hello", "World"), Exercise("Lunges", "Cool")))
+
             override fun insert(exercise: Exercise): Long = -1
         })
     }
