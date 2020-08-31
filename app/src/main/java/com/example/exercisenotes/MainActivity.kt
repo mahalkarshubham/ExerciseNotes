@@ -12,11 +12,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import androidx.ui.tooling.preview.Preview
 import com.example.exercisenotes.data.AppDatabase
+import com.example.exercisenotes.data.Exercise
+import com.example.exercisenotes.data.ExerciseDao
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,14 +39,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme(colors = if (isSystemInDarkTheme()) darkColors() else lightColors()) {
-                MainScreen()
+                MainScreen(
+                    dao = db.dao
+                )
             }
         }
     }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    dao: ExerciseDao
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -53,12 +65,17 @@ fun MainScreen() {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick = {
+                    CoroutineScope(IO).launch {
+                        // TODO: Real implementation; This is just for debugging
+                        dao.insert(Exercise("${(0..1000).random()}", "${(0..10000).random()}"))
+                    }
+                },
                 icon = { Icon(Icons.Filled.Add) }
             )
         },
         bodyContent = {
-            ExercisesList()
+            ExercisesList(dao.getExercises())
         }
     )
 }
@@ -67,16 +84,22 @@ fun MainScreen() {
 @Preview
 fun MainScreenPreview() {
     MaterialTheme {
-        MainScreen()
+        MainScreen(object : ExerciseDao {
+            override fun getExercises(): LiveData<List<Exercise>> = MutableLiveData()
+            override fun insert(exercise: Exercise): Long = -1
+        })
     }
 }
 
 @Composable
-fun ExercisesList() {
-    val mockExercises = listOf("Push Up", "Lunges", "Chest Press")
-    LazyColumnFor(items = mockExercises) { exercise ->
+fun ExercisesList(
+    exercises: LiveData<List<Exercise>>
+) {
+    val state = exercises.observeAsState()
+    LazyColumnFor(items = state.value ?: emptyList()) { exercise ->
         ListItem(
-            text = { Text(exercise) },
+            text = { Text(exercise.name) },
+            secondaryText = { Text(exercise.description) },
             modifier = Modifier.clickable(onClick = {})
         )
     }
