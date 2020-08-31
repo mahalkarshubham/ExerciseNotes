@@ -14,9 +14,19 @@ import androidx.compose.material.icons.filled.Description
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
+import androidx.room.Room
 import androidx.ui.tooling.preview.Preview
+import com.example.exercisenotes.data.AppDatabase
 
 class MainActivity : AppCompatActivity() {
+
+    private val db by lazy {
+        Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database-name"
+        ).build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
