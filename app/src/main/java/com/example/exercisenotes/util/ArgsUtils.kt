@@ -1,4 +1,4 @@
-package com.example.exercisenotes
+package com.example.exercisenotes.util
 
 object ArgsUtils {
     val args = HashMap<String, Any>()

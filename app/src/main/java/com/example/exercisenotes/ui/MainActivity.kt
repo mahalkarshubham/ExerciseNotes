@@ -1,4 +1,4 @@
-package com.example.exercisenotes
+package com.example.exercisenotes.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +25,7 @@ import androidx.ui.tooling.preview.Preview
 import com.example.exercisenotes.data.AppDatabase
 import com.example.exercisenotes.data.Exercise
 import com.example.exercisenotes.data.ExerciseDao
+import com.example.exercisenotes.util.ArgsUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
