@@ -35,7 +35,9 @@ fun EditExercise(
                     IconButton(
                         onClick = {
                             CoroutineScope(IO).launch {
-                                dao!!.insert(exercise)
+                                if (exercise.name.isBlank() && exercise.description.isBlank())
+                                    dao!!.delete(exercise)
+                                else dao!!.insert(exercise)
                             }
                             navTo(Screens.Exercises)
                         },
