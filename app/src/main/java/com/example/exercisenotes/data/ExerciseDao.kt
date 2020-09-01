@@ -13,4 +13,7 @@ interface ExerciseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(exercise: Exercise): Long
+
+    @Query("SELECT * FROM exercise WHERE id == :id")
+    fun getExercise(id: Long): Exercise
 }

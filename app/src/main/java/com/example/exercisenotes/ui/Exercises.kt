@@ -16,8 +16,9 @@ import com.example.exercisenotes.data.Exercise
 import com.example.exercisenotes.data.ExerciseDao
 import com.example.exercisenotes.util.ArgsUtils
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun Exercises(
@@ -39,10 +40,11 @@ fun Exercises(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        // TODO: Real implementation; This is just for debugging
-                        dao.insert(Exercise("${(0..1000).random()}", "${(0..10000).random()}"))
+                    CoroutineScope(IO).launch {
+                        val id = dao.insert(Exercise("", ""))
+                        ArgsUtils.args["exercise"] = dao.getExercise(id)
                     }
+                    navTo(Screens.Edit)
                 },
                 icon = { Icon(Icons.Filled.Add) }
             )
