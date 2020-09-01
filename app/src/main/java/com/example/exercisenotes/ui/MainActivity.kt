@@ -72,6 +72,7 @@ fun MainScreenPreview() {
 
             override fun insert(exercise: Exercise): Long = -1
             override fun getExercise(id: Long) = Exercise("Hello", "World")
+            override fun delete(exercise: Exercise) {}
         })
     }
 }

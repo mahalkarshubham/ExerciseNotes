@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,6 +40,17 @@ fun EditExercise(
                             navTo(Screens.Exercises)
                         },
                         icon = { Icon(Icons.Filled.ArrowBack) }
+                    )
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            CoroutineScope(IO).launch {
+                                dao!!.delete(exercise)
+                            }
+                            navTo(Screens.Exercises)
+                        },
+                        icon = { Icon(Icons.Filled.Delete) }
                     )
                 }
             )
