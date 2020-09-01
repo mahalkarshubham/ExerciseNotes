@@ -18,6 +18,7 @@ import com.example.exercisenotes.data.AppDatabase
 import com.example.exercisenotes.data.Exercise
 import com.example.exercisenotes.data.ExerciseDao
 import com.example.exercisenotes.util.ArgsUtils
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MobileAds.initialize(this)
         setContent {
             MaterialTheme(colors = if (isSystemInDarkTheme()) darkColors() else lightColors()) {
                 MainScreen(

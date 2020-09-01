@@ -59,7 +59,9 @@ dependencies {
 
     // Room
     def room_version = "2.2.5"
-
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    // Ads
+    implementation 'com.google.android.gms:play-services-ads:19.3.0'
 }
