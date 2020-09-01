@@ -67,6 +67,7 @@ fun MainScreen(
         Screens.Exercises -> Exercises(dao, navTo)
         Screens.Edit -> EditExercise(
             exercise = ArgsUtils.args["exercise"] as Exercise,
+            dao = dao,
             navTo = navTo
         )
     }
