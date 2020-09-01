@@ -18,7 +18,6 @@ import com.example.exercisenotes.util.ArgsUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @Composable
 fun Exercises(
@@ -69,14 +68,13 @@ fun ExercisesList(
     val state = exercises.observeAsState()
     LazyColumnFor(items = state.value ?: emptyList()) { exercise ->
         ListItem(
-            text = { Text(exercise.name) },
-            secondaryText = { Text(exercise.description) },
+            text = { Text(exercise.name.takeIf { it.isNotBlank() } ?: "Unnamed") },
+            secondaryText = {
+                Text(exercise.description.takeIf { it.isNotBlank() } ?: "No description")
+            },
             modifier = Modifier.clickable(
                 onClick = {
                     editExercise(exercise)
-                },
-                onLongClick = {
-
                 }
             )
         )
