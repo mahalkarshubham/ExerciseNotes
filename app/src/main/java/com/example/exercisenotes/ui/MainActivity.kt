@@ -73,77 +73,6 @@ fun MainScreen(
 }
 
 @Composable
-fun EditExercise(
-    exercise: Exercise,
-    navTo: (Screens) -> Unit
-) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Edit Exercise") },
-                navigationIcon = {
-                    IconButton(
-                        onClick = { navTo(Screens.Exercises) },
-                        icon = { Icon(Icons.Filled.ArrowBack) }
-                    )
-                }
-            )
-        },
-        bodyContent = {
-            Text(exercise.name)
-        }
-    )
-}
-
-@Composable
-@Preview
-fun EditExercisePreview() {
-    MaterialTheme {
-        EditExercise(Exercise("Lunge", ""), {})
-    }
-}
-
-@Composable
-fun Exercises(
-    dao: ExerciseDao,
-    navTo: (Screens) -> Unit
-) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("ExerciseNotes") },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {},
-                        icon = { Icon(Icons.Filled.Description) }
-                    )
-                }
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    CoroutineScope(IO).launch {
-                        // TODO: Real implementation; This is just for debugging
-                        dao.insert(Exercise("${(0..1000).random()}", "${(0..10000).random()}"))
-                    }
-                },
-                icon = { Icon(Icons.Filled.Add) }
-            )
-        },
-        bodyContent = {
-            ExercisesList(
-                exercises = dao.getExercises(),
-                editExercise = { exercise ->
-                    ArgsUtils.args["exercise"] = exercise
-                    navTo(Screens.Edit)
-                }
-            )
-        }
-    )
-}
-
-@Composable
 @Preview
 fun MainScreenPreview() {
     MaterialTheme {
@@ -153,27 +82,5 @@ fun MainScreenPreview() {
 
             override fun insert(exercise: Exercise): Long = -1
         })
-    }
-}
-
-@Composable
-fun ExercisesList(
-    exercises: LiveData<List<Exercise>>,
-    editExercise: (Exercise) -> Unit
-) {
-    val state = exercises.observeAsState()
-    LazyColumnFor(items = state.value ?: emptyList()) { exercise ->
-        ListItem(
-            text = { Text(exercise.name) },
-            secondaryText = { Text(exercise.description) },
-            modifier = Modifier.clickable(
-                onClick = {
-                    editExercise(exercise)
-                },
-                onLongClick = {
-
-                }
-            )
-        )
     }
 }
