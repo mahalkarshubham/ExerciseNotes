@@ -73,7 +73,7 @@ fun ExercisesContent(
                 navTo(Screens.Edit)
             }
         )
-        ExercisesBannerAd()
+        BannerAd(Ads.exercisesBannerId)
     }
 }
 
@@ -95,19 +95,6 @@ fun ExercisesList(
                 }
             )
         )
-    }
-}
-
-@Composable
-fun ExercisesBannerAd() {
-    val context = ContextAmbient.current
-    val customView = remember { AdView(context) }
-    AndroidView(viewBlock = { customView }) { view ->
-        view.apply {
-            adUnitId = Ads.exercisesBannerId
-            adSize = AdSize.BANNER
-            loadAd(AdRequest.Builder().build())
-        }
     }
 }
 
