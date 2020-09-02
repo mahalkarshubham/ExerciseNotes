@@ -106,18 +106,7 @@ fun ExercisesBannerAd() {
         view.apply {
             adUnitId = Ads.exercisesBannerId
             adSize = AdSize.BANNER
-            Log.d("Exercises", "Loading ad...")
             loadAd(AdRequest.Builder().build())
-            adListener = object : AdListener() {
-                override fun onAdFailedToLoad(error: LoadAdError?) {
-                    Log.d(
-                        "Exercises", "Error\n" +
-                                "message: ${error?.message}\n" +
-                                "cause: ${error?.cause?.message}\n" +
-                                "code: ${error?.code}"
-                    )
-                }
-            }
         }
     }
 }
