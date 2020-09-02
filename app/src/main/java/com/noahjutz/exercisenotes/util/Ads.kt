@@ -1,4 +1,4 @@
-package com.example.exercisenotes.util
+package com.noahjutz.exercisenotes.util
 
 object Ads {
     const val appId = "ca-app-pub-7450355346929746~1347342351"

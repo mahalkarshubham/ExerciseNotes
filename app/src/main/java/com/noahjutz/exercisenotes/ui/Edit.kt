@@ -1,4 +1,4 @@
-package com.example.exercisenotes.ui
+package com.noahjutz.exercisenotes.ui
 
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.ScrollableColumn
@@ -16,9 +16,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
-import com.example.exercisenotes.data.Exercise
-import com.example.exercisenotes.data.ExerciseDao
-import com.example.exercisenotes.util.Ads
+import com.noahjutz.exercisenotes.data.Exercise
+import com.noahjutz.exercisenotes.data.ExerciseDao
+import com.noahjutz.exercisenotes.util.Ads
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch

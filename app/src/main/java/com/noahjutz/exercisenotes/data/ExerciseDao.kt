@@ -1,4 +1,4 @@
-package com.example.exercisenotes.data
+package com.noahjutz.exercisenotes.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

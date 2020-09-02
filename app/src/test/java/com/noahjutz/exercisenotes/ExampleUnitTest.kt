@@ -1,4 +1,4 @@
-package com.example.exercisenotes
+package com.noahjutz.exercisenotes
 
 import org.junit.Test
 

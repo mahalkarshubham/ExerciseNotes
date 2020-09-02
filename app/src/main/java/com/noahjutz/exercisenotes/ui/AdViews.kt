@@ -1,4 +1,4 @@
-package com.example.exercisenotes.ui
+package com.noahjutz.exercisenotes.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

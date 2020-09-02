@@ -1,4 +1,4 @@
-package com.example.exercisenotes.data
+package com.noahjutz.exercisenotes.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

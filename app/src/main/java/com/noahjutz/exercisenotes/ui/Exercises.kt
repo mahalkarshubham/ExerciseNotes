@@ -1,6 +1,5 @@
-package com.example.exercisenotes.ui
+package com.noahjutz.exercisenotes.ui
 
-import android.util.Log
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
@@ -12,16 +11,12 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LiveData
-import com.example.exercisenotes.data.Exercise
-import com.example.exercisenotes.data.ExerciseDao
-import com.example.exercisenotes.util.Ads
-import com.example.exercisenotes.util.ArgsUtils
-import com.google.android.gms.ads.*
+import com.noahjutz.exercisenotes.data.Exercise
+import com.noahjutz.exercisenotes.data.ExerciseDao
+import com.noahjutz.exercisenotes.util.Ads
+import com.noahjutz.exercisenotes.util.ArgsUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch

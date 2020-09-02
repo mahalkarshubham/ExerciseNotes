@@ -1,4 +1,4 @@
-package com.example.exercisenotes.ui
+package com.noahjutz.exercisenotes.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +14,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import androidx.ui.tooling.preview.Preview
-import com.example.exercisenotes.data.AppDatabase
-import com.example.exercisenotes.data.Exercise
-import com.example.exercisenotes.data.ExerciseDao
-import com.example.exercisenotes.util.Ads
-import com.example.exercisenotes.util.ArgsUtils
+import com.noahjutz.exercisenotes.data.AppDatabase
+import com.noahjutz.exercisenotes.data.Exercise
+import com.noahjutz.exercisenotes.data.ExerciseDao
+import com.noahjutz.exercisenotes.util.Ads
+import com.noahjutz.exercisenotes.util.ArgsUtils
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
