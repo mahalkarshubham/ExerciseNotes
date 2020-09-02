@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MobileAds.initialize(this)
-        interstitialAd = InterstitialAd(this).apply { adUnitId = Ads.testInterstitialId }
+        interstitialAd = InterstitialAd(this).apply { adUnitId = Ads.myInterstitialId }
         setContent {
             MaterialTheme(colors = if (isSystemInDarkTheme()) darkColors() else lightColors()) {
                 MainScreen(
