@@ -17,7 +17,10 @@ import androidx.ui.tooling.preview.Preview
 import com.example.exercisenotes.data.AppDatabase
 import com.example.exercisenotes.data.Exercise
 import com.example.exercisenotes.data.ExerciseDao
+import com.example.exercisenotes.util.Ads
 import com.example.exercisenotes.util.ArgsUtils
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
@@ -29,16 +32,24 @@ class MainActivity : AppCompatActivity() {
         ).build()
     }
 
+    private lateinit var interstitialAd: InterstitialAd
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MobileAds.initialize(this)
+        interstitialAd = InterstitialAd(this).apply { adUnitId = Ads.testInterstitialId }
         setContent {
             MaterialTheme(colors = if (isSystemInDarkTheme()) darkColors() else lightColors()) {
                 MainScreen(
-                    dao = db.dao
+                    dao = db.dao,
+                    loadInterstitial = ::loadInterstitial
                 )
             }
         }
+    }
+
+    private fun loadInterstitial() {
+        interstitialAd.loadAd(AdRequest.Builder().build())
     }
 }
 
@@ -48,11 +59,15 @@ enum class Screens {
 
 @Composable
 fun MainScreen(
-    dao: ExerciseDao
+    dao: ExerciseDao,
+    loadInterstitial: () -> Unit
 ) {
     val currentScreen = remember { mutableStateOf(Screens.Exercises) }
+
+    /** Navigate to screen and load interstitial ad */
     val navTo = { s: Screens ->
         currentScreen.value = s
+        loadInterstitial()
     }
     when (currentScreen.value) {
         Screens.Exercises -> Exercises(dao, navTo)
@@ -75,6 +90,6 @@ fun MainScreenPreview() {
             override fun insert(exercise: Exercise): Long = -1
             override fun getExercise(id: Long) = Exercise("Hello", "World")
             override fun delete(exercise: Exercise) {}
-        })
+        }, {})
     }
 }
