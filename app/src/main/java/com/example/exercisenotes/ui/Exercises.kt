@@ -19,6 +19,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LiveData
 import com.example.exercisenotes.data.Exercise
 import com.example.exercisenotes.data.ExerciseDao
+import com.example.exercisenotes.util.Ads
 import com.example.exercisenotes.util.ArgsUtils
 import com.google.android.gms.ads.*
 import kotlinx.coroutines.CoroutineScope
@@ -96,11 +97,4 @@ fun ExercisesList(
             )
         )
     }
-}
-
-object Ads {
-    const val appId = "ca-app-pub-7450355346929746~1347342351"
-
-    const val exercisesBannerId = "ca-app-pub-7450355346929746/2632503867"
-    const val testBannerId = "ca-app-pub-3940256099942544/6300978111"
 }
